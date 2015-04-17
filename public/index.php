@@ -149,6 +149,10 @@ else if($user == 2) echo'
 			<div class="music_title">Issue Date: <span id="title2"></span></div>
 			<div class="music_title">Rating: <span id="title3"></span></div>
 			<div class="music_title">Public: <span id="title4"></span></div>
+			<div id="recom_list">
+				<li>song a</li>
+				<li>song b</li>
+			</div>
 		</div>
 	</div>
 

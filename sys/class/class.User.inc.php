@@ -51,7 +51,22 @@ class User extends DB_Connect {
 		}
 		return count($arr);
 	}
-	
+	public function getrecom($uid)
+	{
+		$sql="
+			select s.sid,s.title,r.degree from recom r,song s where r.uid='".$uid."' and s.sid=r.sid
+		";
+		$select=mysql_query($sql,$this->root_conn) or trigger_error(mysql_error(),E_USER_ERROR);
+		$num=mysql_num_rows($select);
+		$r="";
+		if ($num==0)
+			return "Sorry, None For You";
+		while($result=mysql_fetch_assoc($select)){
+			$r=$r."<li onclick=\""."playrecom(".$result['sid'].")\">".$result['title'].":".$result['degree']."</li>";
+		}
+		return $r;
+		
+	}
 	public function adduser($uid,$name,$tid){
 		$sql = "
 			INSERT INTO user 

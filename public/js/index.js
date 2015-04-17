@@ -226,8 +226,61 @@ function recommendation(){//使用推荐列表中的歌曲进行推荐
 
 		}
 	});
-}
+	$.ajax({
+		type:'POST',
+		url:'./handle/next.php',
+		data:{
+			operation:'GETRECOMLIST',
+		},
+		dataType:'text',
+		success:function(data){
 
+			$('#recom_list').html(data);
+
+
+		}
+	});
+}
+function playrecom(sid)
+{
+	$.ajax({
+		type:'POST',
+		url:'./handle/next.php',
+		data:{
+			operation:'GETMUSICINFO',
+			songid:sid
+		},
+		dataType:'json',
+		success:function(data){
+			$('#msgwindow').val(data.songid);
+			audio.pause();
+			var info = data.douban;
+
+			
+			//add music-----------------
+			audio.src = './music/musicv2/'+data.src;
+			audio.load();
+			
+			
+			song = data.songid;
+			var singer = '';
+			for(var i=0;i<info.attrs.singer.length;i++)
+				singer += info.attrs.singer[i] + ' ';
+			$('#title1').text(info.title+'-'+singer);
+			$('#tagid').text(info.title+'-'+singer);
+			$('#title2').text(info.attrs.pubdate[0]);
+			$('#title3').text(info.rating.average);
+			$('#title4').text(info.attrs.publisher);
+			$('#music_img').attr("src",info.image);
+			status = 1;
+			$('#pp_button').css('background-image','url(./img/pause.png)');
+			$('#progress-inline').css('width','6px');
+			
+			flagrecommend = true;
+
+		}
+	});
+}
 function next(){
 	if(nexttemp == 1){
 		return;

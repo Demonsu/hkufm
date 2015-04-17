@@ -4,18 +4,20 @@
 
 
 
-	$num = 2194;
+	$num = 0;
 	$line = '';
-	$file_handle = fopen("ids.txt", "r");
+	$file_handle = fopen("song.csv", "r");
 	$m=new Music();
 	while(!feof($file_handle)) 
 	{ 
+		if ($num++ % 10000==0)
+			echo (($num+0.1)/6000)."%</br>";
 		$line=fgets($file_handle);
-		echo $line."--->>>>>";
-		$song=explode(":",$line,2);
-		echo $song[0]." ".$song[1]."</br>";
-		echo $m->insertSong($num,$song[1],$song[0]);
-		$num++;
+		//echo $line."--->>>>>";
+		$song=explode(",",$line,3);
+		//echo $song[0]." ".$song[1]." ".$song[2]."</br>";
+		$m->insertSong($song[0],$song[2],$song[1]);
+		
 		//$line = $line.fgets($file_handle);
 	} 
 	fclose($file_handle);

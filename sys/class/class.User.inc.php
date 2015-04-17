@@ -51,6 +51,21 @@ class User extends DB_Connect {
 		}
 		return count($arr);
 	}
+	
+	public function adduser($uid,$name,$tid){
+		$sql = "
+			INSERT INTO user 
+			(uid,passwd,name,tid)
+			VALUES
+			('".$uid."','".$uid."','".$name."','".$tid."')
+		";
+		if (!mysql_query($sql,$this->root_conn))
+		{
+			echo $sql;
+		  //die('Error: ' . mysql_error());
+		}	
+		 return 1;
+	}
 }
 
 ?>

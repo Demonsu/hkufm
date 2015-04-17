@@ -48,6 +48,7 @@ class Music extends DB_Connect {
 		$sql="insert into song (sid,title,author) VALUES ('".$id."','".$title."','".$author."')";
 		if (!mysql_query($sql,$this->root_conn))
 		{
+			echo $sql;
 			//die('Error: ' . mysql_error());
 		}
 		

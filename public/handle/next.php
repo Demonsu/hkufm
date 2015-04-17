@@ -31,7 +31,7 @@
 			} 
 			fclose($file_handle);
 		}
-		$return = sprintf($str,1,$line,$num,$extra);
+		$return = sprintf($str,$num,$line,$num,$extra);
 		//$return = sprintf($str,$nump,$line,$num,$extra);
 		
 		echo $return;

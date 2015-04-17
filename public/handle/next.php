@@ -31,7 +31,8 @@
 			} 
 			fclose($file_handle);
 		}
-		$return = sprintf($str,$nump,$line,$num,$extra);
+		$return = sprintf($str,1,$line,$num,$extra);
+		//$return = sprintf($str,$nump,$line,$num,$extra);
 		
 		echo $return;
 	}
@@ -50,22 +51,14 @@
 			$cold = 1;
 		}
 		$result = "";
-		/*
-		$drpc = new DRPC("114.212.87.171",3772,NULL);
-		$result = $drpc->execute("sweetfm","0>1>2>3");
-		*/
-		$arrt = array("705","912","1002","1224","327","340","569","1499","1631","1643","1915","1995","1514");
-		for($i = 0;$i<10;$i++){
-			$tt = rand(1,5092);
-			while(in_array($tt,$arrt)){
-				$tt = rand(1,5092);
-			}
-			if($result == "")
+
+		for($i = 0;$i<11;$i++){
+			$tt = rand(1,2193);
+			if ($result=="")
 				$result = $tt;
 			else
 				$result = $result.",".$tt;
 		}
-		
 		$return = sprintf($str,$cold,$result);
 		echo $return;
 	}

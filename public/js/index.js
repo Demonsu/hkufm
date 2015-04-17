@@ -42,7 +42,7 @@ $(document).ready(function(){
 	function() {
 		//alert("7");
 		audio.play();
-		$("#msgshow").text("播放："+$('#title1').text());
+		$("#msgshow").text("Play: "+$('#title1').text());
 		topmsgtoggle();
 	},
 	false);
@@ -75,6 +75,11 @@ $(document).ready(function(){
 		}
 	});
 });
+
+
+
+
+
 function cleartags(){
 	$('#newtags').html('');
 }
@@ -89,7 +94,9 @@ function addtags(){
 	tags++;
 }
 function musicporgress(){
+	//alert("musicprogress");
 	if(audio.ended){
+	//alert("audio ended");
 		cent = 1;
 		recommendation();
 	}
@@ -155,11 +162,13 @@ function getRecommendation(){//获取推荐歌曲列表-[1,2,3,4,5,6,7,8,9,10]
 		},
 		dataType:'json',
 		success:function(data){
-			//alert(data);
+			
 			recommendlist = data.list.split(',');
-			if(status == 0){
-				recommendation();
-			}
+			//alert("GetRecom:"+recommendlist[0]);
+			//if(status == 0){
+				//alert(status)
+			recommendation();
+			//}
 		}
 	});
 }
@@ -180,30 +189,21 @@ function getVRecommendation(){//获取推荐歌曲列表-[1,2,3,4,5,6,7,8,9,10]
 	});
 }
 function recommendation(){//使用推荐列表中的歌曲进行推荐
-	if(nexttemp == 1){
-		return;
-	}
-	nexttemp = 1;
-	
-	status == 0
-	getRecommendation();
-
-	like_hate = 0;
-	nowDate();
-	
 	$.ajax({
 		type:'POST',
 		url:'./handle/next.php',
 		data:{
 			operation:'GETMUSICINFO',
-			songid:recommendlist[recommendindex]
+			songid:recommendlist[Math.ceil((Math.random()*10) % 10)]
 		},
 		dataType:'json',
 		success:function(data){
-			//$('#msgwindow').val(data.extra);
+			$('#msgwindow').val(data.songid);
 			audio.pause();
 			var info = data.douban;
 
+			
+			//add music-----------------
 			audio.src = './music/musicv2/'+data.src;
 			audio.load();
 			
@@ -226,7 +226,6 @@ function recommendation(){//使用推荐列表中的歌曲进行推荐
 
 		}
 	});
-	nexttemp = 0;
 }
 
 function next(){
@@ -342,41 +341,9 @@ var visitorlist;
 var visitorindex = 0;
 function playmode(no){
 	if(status == 0){
-		if(no == 0){//游客登录
-			$.ajax({
-				type:'POST',
-				url:'./handle/user.php',
-				data:{
-					operation:'VISITORSTART'
-				},
-				success:function(data){
-					if(data == 1){
-						window.location="./index.php";
-					}
-					else
-						alert(data);
-				}
-			});
-		}
-		else if(no == 1){//普通用户登录
-			$('#recommendbox').hide();
-			getRecommendation();
-			toggleup();
-		}
-		else if(no == 2){//游客选择歌曲
-			$.ajax({
-				type:"POST",
-				url:"./handle/next.php",
-				data:{
-					operation:"COLDSTART"
-				},
-				dataType:"json",
-				success:function(data){
-					visitorlist = data.list.split(',');
-					showVisitor(0);
-				}
-			});
-		}
+		$('#recommendbox').hide();
+		getRecommendation();
+		toggleup();
 	}
 	else if(status == 2){
 		play_pause();
@@ -558,7 +525,7 @@ function like(){
 		success:function(data){
 			//alert(data);
 			if(data.msg == 1){
-				$('#msgshow').text('喜欢：'+$('#title1').text());
+				$('#msgshow').text('Like: '+$('#title1').text());
 				topmsgtoggle();
 			}
 			else if(data.msg == -1){
@@ -590,7 +557,7 @@ function hate(){
 		success:function(data){
 			//alert(data);
 			if(data.msg == 1){
-				$('#msgshow').text('不喜欢：'+$('#title1').text());
+				$('#msgshow').text('Not Like: '+$('#title1').text());
 				topmsgtoggle();
 			}
 			else if(data.msg == -1){

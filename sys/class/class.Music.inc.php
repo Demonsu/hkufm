@@ -42,6 +42,25 @@ class Music extends DB_Connect {
 		}
 		return 1;
 	}
+	public function insertSong ($id,$title,$author)
+	{
+
+		$sql="insert into song (sid,title,author) VALUES ('".$id."','".$title."','".$author."')";
+		if (!mysql_query($sql,$this->root_conn))
+		{
+			//die('Error: ' . mysql_error());
+		}
+		
+	}
+	public function updateSong($id,$title,$author,$image,$music_url,$rating){
+		$sql="update song set title='".$title."',author='".$author."',image='".$image."',music_url='".$music_url."',rating='".$rating."' where sid='".$id."'";
+		if (!mysql_query($sql,$this->root_conn))
+		{
+			//die('Error: ' . mysql_error());
+		}
+		return 1;
+	}
+	
 }
 
 ?>

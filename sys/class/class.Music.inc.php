@@ -22,7 +22,7 @@ class Music extends DB_Connect {
 			}
 			while($result=mysql_fetch_assoc($select)){
 				if(strtotime($result['time']) > strtotime($time) ){
-					$return = $result['sid'].">".$return;
+					$return = $result['sid'].",".$return;
 				}
 				else{
 					break;

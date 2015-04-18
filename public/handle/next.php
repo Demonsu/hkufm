@@ -50,7 +50,7 @@
 		if($list == ""){
 			$cold = 1;
 		}
-		$result = "";
+		$result = $list;
 
 		for($i = 0;$i<11;$i++){
 			$tt = rand(1,2193);
@@ -186,6 +186,8 @@
 		echo 1;
 	}
 	
+	
+	
 	else if($operation == "COLDSTART"){
 		$str = '
 			{
@@ -193,7 +195,7 @@
 			}
 		';
 		/*
-		$drpc = new DRPC("114.212.87.171",3772,NULL);
+		/$drpc = new DRPC("114.212.87.171",3772,NULL);
 		$result = $drpc->execute("sweetfm","!");
 		*/
 		$result = "";

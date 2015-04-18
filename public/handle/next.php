@@ -205,6 +205,10 @@
 		}
 		$return = sprintf($str,$result);
 		echo $return;
+	}else if($operation == 'GETRECOMLIST')
+	{
+		$u=new User();
+		echo $u->getrecom($_SESSION["USERID"]);
 	}
 
 ?>

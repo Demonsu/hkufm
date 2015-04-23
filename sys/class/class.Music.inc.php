@@ -10,7 +10,7 @@ class Music extends DB_Connect {
 	public function getTag($tag){
 	//<li class='list-group-item'>hahahah<span class="badge">hehe</span></li>
 		$r="";
-		$sql = "SELECT * FROM song where tag like '%".$tag."%'";
+		$sql = "SELECT * FROM song where tag like '%".$tag."%' limit 0,100";
 		$select=mysql_query($sql,$this->root_conn) or trigger_error(mysql_error(),E_USER_ERROR);
 		while($result=mysql_fetch_assoc($select)){
 			$r=$r."<li class='list-group-item'><h4 class='list-group-item-heading'>";

@@ -6,15 +6,19 @@
     <title></title>
 </head>
 <body>
+
+
 	<script type="text/javascript" src="./js/jquery.js"></script>
 	<script type="text/javascript" src="./dist/js/bootstrap.js"></script>
 	<link rel="stylesheet" href="./dist/css/bootstrap1.min.css" />
+	<link rel="stylesheet" href="./css/tag.css" />
     <script type="text/javascript">
         $(document).ready(function(){
             var rows_per_page=20;
             var tag;
             var pageCount=1;
             $("button#searchBtn").click(function(){
+				document.getElementById('loading-bar').style.display='block';
                 /**
                  * As soon as a tag is searched, the page shows the first page of songs containing the tag
                  */
@@ -31,6 +35,7 @@
 				},
 				//dataType:'json',
 				success:function(data){
+				document.getElementById('loading-bar').style.display='none';
 					//alert(data);
 					if (data=="")
 						alert("no result");
@@ -40,7 +45,10 @@
             });
         });
     </script>
-
+<div id="loading-bar">
+	<div class="loading-cover"></div>
+	<div class="loading-pic"><img src="./img/loading.gif"/></div>
+</div>
     <div id="search" class="container page-header">
         <form class="form-inline" method="" action="javascript:void(0);">
             <div class="form-group">

@@ -90,7 +90,7 @@
         <form class="form-inline" method="" action="javascript:void(0);">
             <div class="form-group">
                 <label for="inputTag">Song</label>
-                <input type="text" class="form-control" id="inputSong" placeholder="idealistic">
+                <input type="text" class="form-control" id="inputSong" placeholder="smoke">
             </div>
             <button class="btn btn-primary" id="searchSongBtn">Search</button>
         </form>

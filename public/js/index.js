@@ -22,6 +22,14 @@ var mi = d.getMinutes();
 var se = d.getSeconds();
 
 var cent = 0;
+var iterifyArr = function (arr) {
+    var cur = 0;
+    arr.next = (function () { return (++cur >= this.length) ? false : this[cur]; });
+    arr.prev = (function () { return (--cur < 0) ? false : this[cur]; });
+    return arr;
+};
+
+
 
 function nowDate(){
 	d = new Date();
@@ -114,6 +122,7 @@ function musicporgress(){
 	setTimeout("musicporgress()",1000);
 	
 	cent = currentlen/musiclen;
+	/*
 	if(cent > 0.5 && flagrecommend == true){
 		flagrecommend = false;
 		if(song != 0){
@@ -138,7 +147,7 @@ function musicporgress(){
 				}
 			});
 		}
-	}
+	}*/
 	
 }
 var nexttemp = 0;
@@ -164,6 +173,8 @@ function getRecommendation(){//获取推荐歌曲列表-[1,2,3,4,5,6,7,8,9,10]
 		success:function(data){
 			
 			recommendlist = data.list.split(',');
+			//alert(recommendlist);
+			iterifyArr(recommendlist);
 			//alert("GetRecom:"+recommendlist[0]);
 			//if(status == 0){
 				//alert(status)
@@ -189,12 +200,16 @@ function getVRecommendation(){//获取推荐歌曲列表-[1,2,3,4,5,6,7,8,9,10]
 	});
 }
 function recommendation(){//使用推荐列表中的歌曲进行推荐
+var f=recommendlist.next();
+if (f)
+{
+//alert(f );
 	$.ajax({
 		type:'POST',
 		url:'./handle/next.php',
 		data:{
 			operation:'GETMUSICINFO',
-			songid:recommendlist[Math.ceil((Math.random()*10) % 10)]
+			songid:f
 		},
 		dataType:'json',
 		success:function(data){
@@ -226,6 +241,11 @@ function recommendation(){//使用推荐列表中的歌曲进行推荐
 
 		}
 	});
+}
+else
+{
+	getRecommendation();
+}
 	$.ajax({
 		type:'POST',
 		url:'./handle/next.php',
@@ -557,10 +577,6 @@ function register(){
 }
 var like_hate_temp = 0;
 function like(){
-	if(like_hate == 1){
-		return;
-	}
-	like_hate = 1;
 	if(like_hate_temp == 1){
 		return;
 	}

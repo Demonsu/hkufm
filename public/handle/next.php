@@ -52,13 +52,6 @@
 		}
 		$result = $list;
 
-		for($i = 0;$i<11;$i++){
-			$tt = rand(1,2193);
-			if ($result=="")
-				$result = $tt;
-			else
-				$result = $result.",".$tt;
-		}
 		$return = sprintf($str,$cold,$result);
 		echo $return;
 	}

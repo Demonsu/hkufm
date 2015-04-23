@@ -59,11 +59,22 @@ class User extends DB_Connect {
 		$select=mysql_query($sql,$this->root_conn) or trigger_error(mysql_error(),E_USER_ERROR);
 		$num=mysql_num_rows($select);
 		$r="";
-		if ($num==0)
-			return "Sorry, None For You";
+
 		while($result=mysql_fetch_assoc($select)){
 			$r=$r."<li onclick=\""."playrecom(".$result['sid'].")\">".$result['title'].":".$result['degree']."</li>";
 		}
+		
+		$sql = "SELECT r.sid,s.title, r.action FROM record r, song s WHERE (s.sid = r.sid)AND(r.uid='".$uid."') AND (r.action='like' or r.action='listen')";
+		$select=mysql_query($sql,$this->root_conn) or trigger_error(mysql_error(),E_USER_ERROR);
+		$num=mysql_num_rows($select);
+		if($num > 0){
+			while($result=mysql_fetch_assoc($select)){
+				$r=$r."<li onclick=\""."playrecom(".$result['sid'].")\">".$result['title'].":".$result['action']."</li>";
+			}
+		}
+		
+		if ($r=="")
+			return "Sorry, None For You";
 		return $r;
 		
 	}

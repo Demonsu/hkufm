@@ -7,6 +7,27 @@ class Music extends DB_Connect {
 		parent::__construct();
 	}
 	
+	public function getTag($tag){
+	//<li class='list-group-item'>hahahah<span class="badge">hehe</span></li>
+		$r="";
+		$sql = "SELECT * FROM song where tag like '%".$tag."%'";
+		$select=mysql_query($sql,$this->root_conn) or trigger_error(mysql_error(),E_USER_ERROR);
+		while($result=mysql_fetch_assoc($select)){
+			$r=$r."<li class='list-group-item'><h4 class='list-group-item-heading'>";
+			$r=$r.$result['title']."</h4>";
+			$r=$r."<p class='list-group-item-text'>";
+			$tags=explode(",",$result['tag']);
+			foreach ($tags as $t)
+			{
+				$r=$r."<span class=\"badge\">".$t."</span>";
+			}
+			$r=$r."</p></li>";
+		}
+		return $r;
+	}
+	public function getSongTag($song){
+	}
+	
 	public function getlist($uid){
 		$sql = "SELECT * FROM record WHERE uid='".$uid."' AND action='like' or action='listen' ORDER BY time DESC";
 		$select=mysql_query($sql,$this->root_conn) or trigger_error(mysql_error(),E_USER_ERROR);

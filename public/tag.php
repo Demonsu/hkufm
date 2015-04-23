@@ -24,8 +24,8 @@
                  */
                 var tag=$("#inputTag").val();
 				//alert(tag);
-				if (tag.length<3)
-					alert("you are going to wait for a century");
+				//if (tag.length<3)
+				//	alert("you are going to wait for a century");
                	$.ajax({
 				type:'POST',
 				url:'./handle/tag.php',
@@ -49,9 +49,9 @@
                  * As soon as a tag is searched, the page shows the first page of songs containing the tag
                  */
                 var tag=$("#inputSong").val();
-				alert(tag);
-				if (tag.length<3)
-					alert("you are going to wait for a century");
+				//alert(tag);
+				//if (tag.length<3)
+				//	alert("you are going to wait for a century");
                	$.ajax({
 				type:'POST',
 				url:'./handle/tag.php',

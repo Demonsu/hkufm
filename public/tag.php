@@ -43,6 +43,32 @@
 				}
 			});
             });
+			$("#searchSongBtn").click(function(){
+				document.getElementById('loading-bar').style.display='block';
+                /**
+                 * As soon as a tag is searched, the page shows the first page of songs containing the tag
+                 */
+                var tag=$("#inputSong").val();
+				alert(tag);
+				if (tag.length<3)
+					alert("you are going to wait for a century");
+               	$.ajax({
+				type:'POST',
+				url:'./handle/tag.php',
+				data:{
+					operation:'GETTAGBYSONGID',
+					song:tag
+				},
+				//dataType:'json',
+				success:function(data){
+				document.getElementById('loading-bar').style.display='none';
+					//alert(data);
+					if (data=="")
+						alert("no result");
+					$('#song-list').html(data);
+				}
+			});
+            });
         });
     </script>
 <div id="loading-bar">
@@ -52,16 +78,25 @@
     <div id="search" class="container page-header">
         <form class="form-inline" method="" action="javascript:void(0);">
             <div class="form-group">
-                <label for="inputTag">Tag</label>
+                <label for="inputTag">Tags</label>
                 <input type="text" class="form-control" id="inputTag" placeholder="idealistic">
             </div>
             <button class="btn btn-primary" id="searchBtn">Search</button>
         </form>
     </div>
+	<div id="searchsong" class="container page-header">
+        <form class="form-inline" method="" action="javascript:void(0);">
+            <div class="form-group">
+                <label for="inputTag">Song</label>
+                <input type="text" class="form-control" id="inputSong" placeholder="idealistic">
+            </div>
+            <button class="btn btn-primary" id="searchSongBtn">Search</button>
+        </form>
+    </div>
     <div id="songs" class="container">
         <container class="container">
             <ul class="list-group" id="song-list">
-				       <li class='list-group-item'><h4 class='list-group-item-heading'>sasdsad</h4><p class='list-group-item-text'><span class='badge'>asdasd</span></p></li>
+				   
 					   
 					   
             </ul>

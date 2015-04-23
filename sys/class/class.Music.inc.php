@@ -26,6 +26,21 @@ class Music extends DB_Connect {
 		return $r;
 	}
 	public function getSongTag($song){
+		$r="";
+		$sql = "SELECT * FROM song where title like '%".$song."%' limit 0,100";
+		$select=mysql_query($sql,$this->root_conn) or trigger_error(mysql_error(),E_USER_ERROR);
+		while($result=mysql_fetch_assoc($select)){
+			$r=$r."<li class='list-group-item'><h4 class='list-group-item-heading'>";
+			$r=$r.$result['title']."</h4>";
+			$r=$r."<p class='list-group-item-text'>";
+			$tags=explode(",",$result['tag']);
+			foreach ($tags as $t)
+			{
+				$r=$r."<span class=\"badge\">".$t."</span>";
+			}
+			$r=$r."</p></li>";
+		}
+		return $r;
 	}
 	
 	public function getlist($uid){

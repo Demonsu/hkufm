@@ -623,6 +623,13 @@ function like(){
 	like_hate_temp = 0;
 }
 function hate(){
+
+	var name = prompt("Write a comment", ""); 
+	if (name)//如果返回的有内容  
+	{  
+		alert(name)  
+	}  
+	/*
 	if(like_hate == 2){
 		return;
 	}
@@ -653,6 +660,7 @@ function hate(){
 		}
 	});
 	like_hate_temp = 0;
+	*/
 }
 function getuserinfo(){
 	$('#user-id').text(userid);

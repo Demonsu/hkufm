@@ -20,8 +20,14 @@
 			$file_handle = fopen("../music/infov2/".$num.".txt", "r");
 			$line = fgets($file_handle);
 			fclose($file_handle);
+			$return = sprintf($str,$num,$line,$num,$extra);
+			//$return = sprintf($str,$nump,$line,$num,$extra);
+			echo $return;
 		}
 		else{
+			$m=new Music();
+			echo $m->getMusicInfo($num);
+			/*
 			$nump = 'billboard'.($num-2193);
 			
 			$file_handle = fopen("../music/infov2/".$nump.".txt", "r");
@@ -30,11 +36,9 @@
 				$line = $line.fgets($file_handle);
 			} 
 			fclose($file_handle);
+			*/
 		}
-		$return = sprintf($str,$num,$line,$num,$extra);
-		//$return = sprintf($str,$nump,$line,$num,$extra);
-		
-		echo $return;
+
 	}
 	else if($operation == 'RECOMMENDATION'){
 		$str = '{

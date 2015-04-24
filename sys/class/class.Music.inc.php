@@ -102,6 +102,39 @@ class Music extends DB_Connect {
 		}
 		return 1;
 	}
+	public function getMusicInfo($sid)
+	{
+		$re = '
+				{
+					"src":"%s.mp3",
+					"douban":%s,
+					"songid":%s,
+					"extra":%s
+				}
+			';
+		$str='
+			{
+				"author":[{"name":"%s"}],
+				"title":"%s",
+				"attrs":{
+					"pubdate":["NA"],
+					"singer":["NA"],
+					"publisher":["NA"]
+				},
+				"rating":{"min":0,"max":10,"numRaters":3401,"average":"%s"}
+			}
+		';
+		$sql="select * from song where sid='".$sid."' limit 0,1";
+		$select=mysql_query($sql,$this->root_conn) or trigger_error(mysql_error(),E_USER_ERROR);
+		$num=mysql_num_rows($select);		
+		if ($num>0)
+		{
+			$result=mysql_fetch_assoc($select);
+			$douban = sprintf($str,$result['author'],$result['title'],$result['rating']);
+			$return=sprintf($re,$sid,$douban,$sid,"0");
+			return $return;
+		}
+	}
 	
 }
 

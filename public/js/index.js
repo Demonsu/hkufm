@@ -201,9 +201,10 @@ function getVRecommendation(){//获取推荐歌曲列表-[1,2,3,4,5,6,7,8,9,10]
 }
 function recommendation(){//使用推荐列表中的歌曲进行推荐
 var f=recommendlist.next();
+//alert(f);
 if (f)
 {
-//alert(f );
+	//alert(f );
 	$.ajax({
 		type:'POST',
 		url:'./handle/next.php',
@@ -212,27 +213,43 @@ if (f)
 			songid:f
 		},
 		dataType:'json',
-		success:function(data){
+		success:function(data){	
+			//alert(data);
 			$('#msgwindow').val(data.songid);
 			audio.pause();
 			var info = data.douban;
 
-			
-			//add music-----------------
-			audio.src = './music/musicv2/'+data.src;
-			audio.load();
-			
-			
-			song = data.songid;
-			var singer = '';
-			for(var i=0;i<info.attrs.singer.length;i++)
-				singer += info.attrs.singer[i] + ' ';
-			$('#title1').text(info.title+'-'+singer);
-			$('#tagid').text(info.title+'-'+singer);
-			$('#title2').text(info.attrs.pubdate[0]);
-			$('#title3').text(info.rating.average);
-			$('#title4').text(info.attrs.publisher);
-			$('#music_img').attr("src",info.image);
+			if (f>2193)
+			{
+				//alert("get from database");
+				audio.src = './music/musicv2/'+data.src;
+				audio.load();
+				song = data.songid;
+				var singer = '';
+				for(var i=0;i<info.attrs.singer.length;i++)
+					singer += info.attrs.singer[i] + ' ';
+				$('#title1').text(info.title+'-'+singer);
+				$('#tagid').text(info.title+'-'+singer);
+				$('#title2').text(info.attrs.pubdate[0]);
+				$('#title3').text(info.rating.average);
+				$('#title4').text(info.attrs.publisher);
+				//$('#music_img').attr("src",info.image);				
+			}else
+			{
+				//add music-----------------
+				audio.src = './music/musicv2/'+data.src;
+				audio.load();
+				song = data.songid;
+				var singer = '';
+				for(var i=0;i<info.attrs.singer.length;i++)
+					singer += info.attrs.singer[i] + ' ';
+				$('#title1').text(info.title+'-'+singer);
+				$('#tagid').text(info.title+'-'+singer);
+				$('#title2').text(info.attrs.pubdate[0]);
+				$('#title3').text(info.rating.average);
+				$('#title4').text(info.attrs.publisher);
+				$('#music_img').attr("src",info.image);
+			}
 			status = 1;
 			$('#pp_button').css('background-image','url(./img/pause.png)');
 			$('#progress-inline').css('width','6px');
